@@ -1,17 +1,11 @@
-const http=require('http')
+const EventEmitter=require('events')
 
-const server=http.createServer((req,res)=>{
-    if(req.url==='/'){
-        res.end('Home page');
-    }
-    if(req.url==='/about'){
-        res.end('About page');
-    }
-    else{
-        res.end('Error message');
-    }
+const customEmitter=new EventEmitter()
+customEmitter.on('response',(name,id)=>{
+    console.log(`data received name:${name} id:${id}`)
 })
 
-server.listen(5000,()=>{
-    console.log('Server is listening on port 5000.....')
+customEmitter.on('response',()=>{
+    console.log(`Some other stuff`)
 })
+customEmitter.emit('response','Ashrith',34)
